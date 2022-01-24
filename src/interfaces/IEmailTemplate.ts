@@ -1,4 +1,4 @@
-export default interface ISafeAlert {
+export interface ISafeAlert {
   [key: string]: string;
   contact_email: string;
   from_name: string;
@@ -10,4 +10,8 @@ export default interface ISafeAlert {
   stop_phone: string;
   stop_email: string;
   trip_name: string;
+}
+
+export interface ICheckInOut extends ISafeAlert {
+  stop_details: string;
 }
