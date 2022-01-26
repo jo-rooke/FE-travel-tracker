@@ -1,47 +1,45 @@
-import { greet } from "./utils/greet";
-import safeAlertEmail from "./utils/safeAlertEmail";
-import { init } from "emailjs-com";
-import checkInOutEmail from "./utils/checkInOutEmail";
-init("user_ibvDbNtHebP8cT2vHy7ut");
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import AddTrip from "./routes/AddTrip";
+import LogInPage from "./routes/LogInPage";
+import UserProfile from "./routes/UserProfile";
+import ViewTrip from "./routes/ViewTrip";
+import IUser from "./interfaces/IUser";
+import getFullUser from "./utils/getFullUser";
+import { baseUrl } from "./baseUrl";
+import getData from "./utils/getData";
 
 function App(): JSX.Element {
-  const mysteryTraveller = {
-    contact_email: "joely.rooke@gmail.com",
-    from_name: "mystery traveller",
-    to_name: "Joely Rooke",
-    stop_name: "Amílcar Cabral International Airport",
-    stop_location_link: "https://goo.gl/maps/1hpmLvjGTZTd27FJ7",
-    arr_or_dep: "arrived",
-    stop_last_seen: "10:00, 24/01/2022",
-    stop_phone: "+447443915741",
-    stop_email: "joely.rooke1@gmail.com",
-    trip_name: "Cabo Verde",
-  };
-  const secretAdmirer = {
-    contact_email: "joely.rooke@gmail.com",
-    from_name: "secret admirer",
-    to_name: "Joely Rooke",
-    stop_name: "Amílcar Cabral International Airport",
-    stop_location_link: "https://goo.gl/maps/1hpmLvjGTZTd27FJ7",
-    arr_or_dep: "arrived",
-    stop_last_seen: "10:00, 24/01/2022",
-    stop_phone: "+447443915741",
-    stop_email: "joely.rooke1@gmail.com",
-    trip_name: "Cabo Verde",
-    stop_details:
-      "Planning to see some friends, get a tan, and forget how to code",
-  };
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
+  const [user, setUser] = useState<IUser | undefined>();
+
+  useEffect(() => {
+    getData(baseUrl + "/users", setAllUsers);
+  }, []);
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("userId");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(getFullUser(allUsers, foundUser));
+    }
+  }, [allUsers]);
 
   return (
-    <>
-      <h1>{greet("World")}</h1>
-      <button onClick={() => safeAlertEmail(mysteryTraveller)}>
-        I'm safe!
-      </button>
-      <button onClick={() => checkInOutEmail(secretAdmirer)}>
-        I've arrived
-      </button>
-    </>
+    <div>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LogInPage user={user} setUser={setUser} allUsers={allUsers} />
+            }
+          />
+          <Route path="/profile" element={<UserProfile user={user} />} />
+          <Route path="/view-trip" element={<ViewTrip />} />
+          <Route path="/add-trip" element={<AddTrip />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
