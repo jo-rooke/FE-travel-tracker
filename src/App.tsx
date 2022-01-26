@@ -34,9 +34,18 @@ function App(): JSX.Element {
               <LogInPage user={user} setUser={setUser} allUsers={allUsers} />
             }
           />
-          <Route path="/profile" element={<UserProfile user={user} />} />
-          <Route path="/view-trip" element={<ViewTrip />} />
-          <Route path="/add-trip" element={<AddTrip />} />
+          <Route
+            path="/profile"
+            element={<UserProfile user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/view-trip"
+            element={<ViewTrip user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/add-trip"
+            element={<AddTrip user={user} setUser={setUser} />}
+          />
         </Routes>
       </Router>
     </div>

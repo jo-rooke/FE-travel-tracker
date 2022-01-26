@@ -1,10 +1,9 @@
 import IUser from "../interfaces/IUser";
 import { Link } from "react-router-dom";
 
-export default function LogIn(props: {
+export default function LogOut(props: {
   user: IUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
-  allUsers: IUser[];
 }): JSX.Element {
   return (
     <>
