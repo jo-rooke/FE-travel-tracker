@@ -36,15 +36,28 @@ function App(): JSX.Element {
           />
           <Route
             path="/profile"
-            element={<UserProfile user={user} setUser={setUser} />}
+            element={
+              user !== undefined && (
+                <UserProfile user={user} setUser={setUser} />
+              )
+            }
           />
           <Route
             path="/view-trip"
-            element={<ViewTrip user={user} setUser={setUser} />}
+            element={
+              <ViewTrip
+                user={user}
+                setUser={setUser}
+                tripId={7}
+                tripName={"Cabo Verde"}
+              />
+            }
           />
           <Route
             path="/add-trip"
-            element={<AddTrip user={user} setUser={setUser} />}
+            element={
+              user !== undefined && <AddTrip user={user} setUser={setUser} />
+            }
           />
         </Routes>
       </Router>
