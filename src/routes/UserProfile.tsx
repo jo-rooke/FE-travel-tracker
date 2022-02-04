@@ -7,10 +7,13 @@ import { baseUrl } from "../baseUrl";
 import { ISafeAlert } from "../interfaces/IEmailTemplate";
 import AllTrips from "../components/AllTrips";
 import AllContacts from "../components/AllContacts";
+import ITrip from "../interfaces/ITrip";
 
 export default function UserProfile(props: {
   user: IUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  individualTrip: ITrip | undefined;
+  setIndividualTrip: React.Dispatch<React.SetStateAction<ITrip | undefined>>;
 }): JSX.Element {
   const initialValue = {
     contact_email: "",
@@ -27,10 +30,8 @@ export default function UserProfile(props: {
 
   const [lastSeen, setLastSeen] = useState<ISafeAlert>(initialValue);
   useEffect(() => {
-    console.log("UE 1");
     props.user !== undefined &&
       getData(baseUrl + `/lastSeen/${props.user.id}`, setLastSeen);
-    console.log("UE 2");
   }, [props.user]);
   console.log(lastSeen);
   return (
@@ -45,9 +46,52 @@ export default function UserProfile(props: {
         <em>Alerts all your saved contacts that you are safe</em>
       </p>
       <br />
-      <AllTrips user={props.user} />
+      <AllTrips
+        user={props.user}
+        individualTrip={props.individualTrip}
+        setIndividualTrip={props.setIndividualTrip}
+      />
       <br />
       <AllContacts user={props.user} />
+      <div
+        className="modal fade"
+        id="addContact"
+        tab-index="-1"
+        role="dialog"
+        aria-labelledby="addContactLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="addContactLabel">
+                Add a Contact
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">Modal body here</div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -8,10 +8,12 @@ import IUser from "./interfaces/IUser";
 import getFullUser from "./utils/getFullUser";
 import { baseUrl } from "./baseUrl";
 import getData from "./utils/getData";
+import ITrip from "./interfaces/ITrip";
 
 function App(): JSX.Element {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [user, setUser] = useState<IUser | undefined>();
+  const [individualTrip, setIndividualTrip] = useState<ITrip | undefined>();
 
   useEffect(() => {
     getData(baseUrl + "/users", setAllUsers);
@@ -25,7 +27,7 @@ function App(): JSX.Element {
   }, [allUsers]);
 
   return (
-    <div>
+    <div className="p-5">
       <Router>
         <Routes>
           <Route
@@ -38,7 +40,12 @@ function App(): JSX.Element {
             path="/profile"
             element={
               user !== undefined && (
-                <UserProfile user={user} setUser={setUser} />
+                <UserProfile
+                  user={user}
+                  setUser={setUser}
+                  individualTrip={individualTrip}
+                  setIndividualTrip={setIndividualTrip}
+                />
               )
             }
           />
@@ -48,8 +55,8 @@ function App(): JSX.Element {
               <ViewTrip
                 user={user}
                 setUser={setUser}
-                tripId={7}
-                tripName={"Cabo Verde"}
+                individualTrip={individualTrip}
+                setIndividualTrip={setIndividualTrip}
               />
             }
           />

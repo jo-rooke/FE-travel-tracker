@@ -69,7 +69,14 @@ export default function AllContacts(props: {
           ))}
         </tbody>
       </table>
-      <button> Add a new contact </button>
+      <button
+        type="button"
+        className="btn btn-success"
+        data-toggle="modal"
+        data-target="#addContact"
+      >
+        Add a Contact
+      </button>
     </div>
   );
 }
