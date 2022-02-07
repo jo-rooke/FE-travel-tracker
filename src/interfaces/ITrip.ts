@@ -16,9 +16,3 @@ interface contacts {
   name: string;
   activated: boolean;
 }
-
-id: 0;
-name: "";
-stops: [{ count: 0 }];
-dateRange: [{ exp_arrival: "" }];
-contacts: [{ name: "", activated: false }];
