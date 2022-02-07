@@ -62,14 +62,9 @@ export default function AllTrips(props: {
           ))}
         </tbody>
       </table>
-      <button
-        type="button"
-        className="btn btn-success"
-        data-bs-toggle="modal"
-        data-bs-target="#addTrip"
-      >
-        Add a trip
-      </button>
+      <Link to="/add-trip">
+        <button className="btn btn-success">Add a trip</button>
+      </Link>
     </div>
   );
 }

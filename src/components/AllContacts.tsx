@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import IContact from "../interfaces/IContact";
 import IUser from "../interfaces/IUser";
 import { baseUrl } from "../baseUrl";
@@ -8,12 +8,13 @@ import handleDeleteContact from "../utils/handleDeleteContact";
 import hideEmail from "../utils/hideEmail";
 export default function AllContacts(props: {
   user: IUser | undefined;
+  allContacts: IContact[];
+  setAllContacts: React.Dispatch<React.SetStateAction<IContact[]>>;
 }): JSX.Element {
-  const [allContacts, setAllContacts] = useState<IContact[]>([]);
   useEffect(() => {
     props.user !== undefined &&
-      getData(baseUrl + `/contacts/${props.user.id}`, setAllContacts);
-  }, [props.user]);
+      getData(baseUrl + `/contacts/${props.user.id}`, props.setAllContacts);
+  }, [props.user, props.setAllContacts]);
   return (
     <div>
       <table className="table">
@@ -29,7 +30,7 @@ export default function AllContacts(props: {
           </tr>
         </thead>
         <tbody>
-          {allContacts?.map((contact) => (
+          {props.allContacts?.map((contact) => (
             <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{hideEmail(contact.email)}</td>
@@ -39,7 +40,7 @@ export default function AllContacts(props: {
                   <button
                     className="btn btn-primary"
                     onClick={() =>
-                      handleDisableContact(contact.id, setAllContacts)
+                      handleDisableContact(contact.id, props.setAllContacts)
                     }
                   >
                     Disable
@@ -48,7 +49,7 @@ export default function AllContacts(props: {
                   <button
                     className="btn btn-success"
                     onClick={() =>
-                      handleDisableContact(contact.id, setAllContacts)
+                      handleDisableContact(contact.id, props.setAllContacts)
                     }
                   >
                     Enable
@@ -59,7 +60,7 @@ export default function AllContacts(props: {
                 <button
                   className="btn btn-danger"
                   onClick={() =>
-                    handleDeleteContact(contact.id, setAllContacts)
+                    handleDeleteContact(contact.id, props.setAllContacts)
                   }
                 >
                   Delete
