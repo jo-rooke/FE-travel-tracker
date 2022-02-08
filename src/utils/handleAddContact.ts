@@ -11,14 +11,6 @@ export default function handleAddContact(
   setName: React.Dispatch<React.SetStateAction<string>>,
   setEmail: React.Dispatch<React.SetStateAction<string>>
 ): void {
-  function resetStates(
-    setName: React.Dispatch<React.SetStateAction<string>>,
-    setEmail: React.Dispatch<React.SetStateAction<string>>
-  ) {
-    setName("");
-    setEmail("");
-  }
-
   axios
     .post(baseUrl + `/contacts/${userId}`, {
       contactName: name,
@@ -27,7 +19,10 @@ export default function handleAddContact(
     .then(() => {
       getData(baseUrl, setState);
     })
-    .then(() => resetStates(setName, setEmail))
+    .then(() => {
+      setName("");
+      setEmail("");
+    })
     .catch((error) => {
       console.log(error);
     });
