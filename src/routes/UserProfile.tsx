@@ -89,7 +89,7 @@ export default function UserProfile(props: {
             </div>
             <div className="modal-body">
               <div className="form-group">
-                <h3>Contact name</h3>
+                <h5>Contact name</h5>
                 <input
                   type="text"
                   className="form-control"
@@ -97,6 +97,7 @@ export default function UserProfile(props: {
                   value={newContactName}
                   onChange={(e) => setNewContactName(e.target.value)}
                 />
+                <h5>Contact email</h5>
                 <input
                   type="text"
                   className="form-control"
@@ -117,6 +118,7 @@ export default function UserProfile(props: {
               <button
                 type="button"
                 className="btn btn-primary"
+                data-dismiss="modal"
                 onClick={() => {
                   (props.user && newContactName !== "") ||
                   (props.user && newContactEmail !== "")
@@ -124,7 +126,9 @@ export default function UserProfile(props: {
                         newContactName,
                         newContactEmail,
                         props.user.id,
-                        setAllContacts
+                        setAllContacts,
+                        setNewContactName,
+                        setNewContactEmail
                       )
                     : window.alert(
                         "Contact name and email must be filled to submit."
