@@ -55,7 +55,15 @@ export default function AllTrips(props: {
               <td>
                 {trip.contacts.length > 0
                   ? `Shared with
-                ${trip.contacts.map((contact) => ` ${contact.name},`)}`
+                ${trip.contacts.map(
+                  (contact) =>
+                    ` ${contact.name}${
+                      trip.contacts.length - 1 !==
+                      trip.contacts.indexOf(contact)
+                        ? ", "
+                        : ""
+                    }`
+                )}`
                   : "No contacts yet"}
               </td>
             </tr>
