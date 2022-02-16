@@ -17,25 +17,25 @@ export default function UserProfile(props: {
   individualTrip: ITrip | undefined;
   setIndividualTrip: React.Dispatch<React.SetStateAction<ITrip | undefined>>;
 }): JSX.Element {
-  const initialValue = {
-    contact_email: "",
-    from_name: "",
-    to_name: "",
-    stop_name: "",
-    stop_location_link: "",
-    stop_last_seen: "",
-    stop_phone: "",
-    stop_email: "",
-    trip_name: "",
-    arr_or_dep: "",
-  };
-
-  const [lastSeen, setLastSeen] = useState<ISafeAlert>(initialValue);
+  const initialValue = [
+    {
+      contact_email: "",
+      from_name: "",
+      to_name: "",
+      stop_name: "",
+      stop_location_link: "",
+      stop_last_seen: "",
+      stop_phone: "",
+      stop_email: "",
+      trip_name: "",
+      arr_or_dep: "",
+    },
+  ];
+  const [lastSeen, setLastSeen] = useState<ISafeAlert[]>(initialValue);
   useEffect(() => {
     props.user !== undefined &&
       getData(baseUrl + `/lastSeen/${props.user.id}`, setLastSeen);
   }, [props.user]);
-  console.log(lastSeen);
 
   const [newContactName, setNewContactName] = useState("");
   const [newContactEmail, setNewContactEmail] = useState("");
@@ -48,7 +48,14 @@ export default function UserProfile(props: {
         user={props.user}
         setUser={props.setUser}
       />
-      <button onClick={() => safeAlertEmail(lastSeen)}> I'm safe </button>
+      <button
+        onClick={() => {
+          lastSeen[0].contact_email !== "" && safeAlertEmail(lastSeen);
+        }}
+      >
+        {" "}
+        I'm safe{" "}
+      </button>
       <p>
         <em>Alerts all your saved contacts that you are safe</em>
       </p>

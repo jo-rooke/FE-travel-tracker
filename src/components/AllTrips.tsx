@@ -51,7 +51,7 @@ export default function AllTrips(props: {
                     )} - ${formatDate(trip.dateRange[1].exp_arrival)}`
                   : "No dates yet"}
               </td>
-              <td>{trip.stops[0].count}</td>
+              <td>{trip.stops[0].count} stops</td>
               <td>
                 {trip.contacts.length > 0
                   ? `Shared with

@@ -7,7 +7,7 @@ export default function getData(
   url: string,
   setState:
     | React.Dispatch<React.SetStateAction<IUser[]>>
-    | React.Dispatch<React.SetStateAction<ISafeAlert>>
+    | React.Dispatch<React.SetStateAction<ISafeAlert[]>>
     | React.Dispatch<React.SetStateAction<ITrip[]>>
     | React.Dispatch<React.SetStateAction<IContact[]>>
     | React.Dispatch<React.SetStateAction<IStop[] | undefined>>
