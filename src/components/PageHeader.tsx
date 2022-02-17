@@ -1,6 +1,7 @@
 import IUser from "../interfaces/IUser";
 import LogOut from "./LogOut";
 import { Link } from "react-router-dom";
+import IContact from "../interfaces/IContact";
 
 export default function PageHeader(props: {
   title: string;
