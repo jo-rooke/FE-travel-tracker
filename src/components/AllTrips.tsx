@@ -71,7 +71,7 @@ export default function AllTrips(props: {
         </tbody>
       </table>
       <Link to="/add-trip">
-        <button className="btn btn-success">Add a Trip</button>
+        <button className="btn btn-success me-2 btn-sm">Add a Trip</button>
       </Link>
     </div>
   );

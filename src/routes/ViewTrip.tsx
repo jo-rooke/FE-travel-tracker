@@ -29,7 +29,7 @@ export default function ViewTrip(props: {
         {" "}
         {props.individualTrip !== undefined && props.individualTrip.name}
       </h1>
-      <button className="btn btn-success">Edit trip</button>
+      <button className="btn btn-success me-2 btn-sm">Edit trip</button>
       <br />
       {allStops?.map((stop) => (
         <Stop

@@ -49,6 +49,7 @@ export default function UserProfile(props: {
         setUser={props.setUser}
       />
       <button
+        className="btn btn-success me-2 btn-sm"
         onClick={() => {
           lastSeen[0].contact_email !== "" && safeAlertEmail(lastSeen);
         }}
@@ -117,14 +118,14 @@ export default function UserProfile(props: {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary me-2 btn-sm"
                 data-dismiss="modal"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary me-2 btn-sm"
                 data-dismiss="modal"
                 onClick={() => {
                   (props.user && newContactName !== "") ||

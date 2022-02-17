@@ -38,7 +38,7 @@ export default function AllContacts(props: {
               <td>
                 {contact.activated ? (
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary me-2 btn-sm"
                     onClick={() =>
                       handleDisableContact(contact.id, props.setAllContacts)
                     }
@@ -47,7 +47,7 @@ export default function AllContacts(props: {
                   </button>
                 ) : (
                   <button
-                    className="btn btn-success"
+                    className="btn btn-success me-2 btn-sm"
                     onClick={() =>
                       handleDisableContact(contact.id, props.setAllContacts)
                     }
@@ -58,7 +58,7 @@ export default function AllContacts(props: {
               </td>
               <td>
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-danger me-2 btn-sm"
                   onClick={() =>
                     handleDeleteContact(contact.id, props.setAllContacts)
                   }
@@ -72,7 +72,7 @@ export default function AllContacts(props: {
       </table>
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-success me-2 btn-sm"
         data-toggle="modal"
         data-target="#addContact"
       >

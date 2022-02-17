@@ -8,7 +8,7 @@ export default function handleDisableContact(
 ): void {
   axios
     .put(`${baseUrl}/contacts/${contactId}`)
-    .then((response) => {
+    .then(() => {
       getData(baseUrl, setAllContacts);
     })
     .catch((error) => {
