@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 import IContact from "../interfaces/IContact";
-import { ICompanion, IStopAdding } from "../interfaces/IStop";
+import { IStopAdding } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
 import getData from "../utils/getData";
 import { baseUrl } from "../baseUrl";
 import handleAddTrip from "../utils/handleAddTrip";
-import Stop from "../components/Stop";
+// import Stop from "../components/Stop";
 import { INewTrip, initialNewTrip } from "../interfaces/INewTrip";
 import { handleClickContact } from "../utils/handleClickContact";
 import handleAddStop from "../utils/handleAddStop";

@@ -2,7 +2,7 @@ import IUser from "../interfaces/IUser";
 import PageHeader from "../components/PageHeader";
 import ITrip from "../interfaces/ITrip";
 import Stop from "../components/Stop";
-import IStop from "../interfaces/IStop";
+import { IStopSubmitted } from "../interfaces/IStop";
 import { useState, useEffect } from "react";
 import getData from "../utils/getData";
 import { baseUrl } from "../baseUrl";
@@ -13,7 +13,7 @@ export default function ViewTrip(props: {
   individualTrip: ITrip | undefined;
   setIndividualTrip: React.Dispatch<React.SetStateAction<ITrip | undefined>>;
 }): JSX.Element {
-  const [allStops, setAllStops] = useState<IStop[] | undefined>();
+  const [allStops, setAllStops] = useState<IStopSubmitted[] | undefined>();
   useEffect(() => {
     props.individualTrip !== undefined &&
       getData(baseUrl + `/stops/${props.individualTrip.id}`, setAllStops);

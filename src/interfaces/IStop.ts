@@ -1,4 +1,4 @@
-export interface IStopBasic {
+export default interface IStopBasic {
   trip: number;
   name: string;
   location_link: string;

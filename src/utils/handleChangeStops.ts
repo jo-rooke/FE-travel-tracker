@@ -7,6 +7,6 @@ export const handleChangeStops = (
     | React.ChangeEvent<HTMLTextAreaElement>,
   state: IStopAdding,
   setState: React.Dispatch<React.SetStateAction<IStopAdding>>
-) => {
+): void => {
   setState({ ...state, [e.target.name]: e.target.value });
 };

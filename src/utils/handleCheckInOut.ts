@@ -1,12 +1,12 @@
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
-import IStop from "../interfaces/IStop";
+import { IStopSubmitted } from "../interfaces/IStop";
 import getData from "./getData";
 
 export default function handleCheckInOut(
   stopId: number,
   arrOrDep: string,
-  setState: React.Dispatch<React.SetStateAction<IStop[] | undefined>>
+  setState: React.Dispatch<React.SetStateAction<IStopSubmitted[] | undefined>>
 ): void {
   axios
     .put(baseUrl + `/stops/${arrOrDep}/${stopId}`)

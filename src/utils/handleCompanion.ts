@@ -5,7 +5,7 @@ export const handleCompanion = (
   e: React.ChangeEvent<HTMLInputElement>,
   state: ICompanion,
   setState: React.Dispatch<React.SetStateAction<ICompanion>>
-) => {
+): void => {
   setState({ ...state, [e.target.name]: e.target.value });
 };
 
@@ -14,7 +14,7 @@ export const handleAddCompanion = (
   setCompanion: React.Dispatch<React.SetStateAction<ICompanion>>,
   newStop: IStopAdding,
   setNewStop: React.Dispatch<React.SetStateAction<IStopAdding>>
-) => {
+): void => {
   setNewStop({ ...newStop, companions: [...newStop.companions, companion] });
   setCompanion(initialNewCompanion);
 };
