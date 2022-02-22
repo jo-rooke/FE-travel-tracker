@@ -6,7 +6,7 @@ import sanitiseTimestamp from "../utils/sanitiseTimestamp";
 export default function Stop(props: {
   stop: IStopSubmitted;
   user: IUser | undefined;
-  setAllStops: React.Dispatch<
+  setAllStops?: React.Dispatch<
     React.SetStateAction<IStopSubmitted[] | undefined>
   >;
 }): JSX.Element {
@@ -19,18 +19,25 @@ export default function Stop(props: {
           </h3>
           {props.stop.actual_arrival === null ? (
             <>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-                onClick={() =>
-                  handleCheckInOut(props.stop.id, "arrived", props.setAllStops)
-                }
-                defaultChecked={!props.stop.actual_arrival === null}
-              />
+              {props.setAllStops && (
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  onClick={() =>
+                    props.setAllStops &&
+                    handleCheckInOut(
+                      props.stop.id,
+                      "arrived",
+                      props.setAllStops
+                    )
+                  }
+                  defaultChecked={!props.stop.actual_arrival === null}
+                />
+              )}
               <p>
-                {/* Expected arrival: {sanitiseTimestamp(props.stop.exp_arrival)}{" "} */}
+                Expected arrival: {sanitiseTimestamp(props.stop.exp_arrival)}{" "}
               </p>
             </>
           ) : (
@@ -38,23 +45,26 @@ export default function Stop(props: {
           )}
           {props.stop.actual_departure === null ? (
             <>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-                onClick={() =>
-                  handleCheckInOut(
-                    props.stop.id,
-                    "departure",
-                    props.setAllStops
-                  )
-                }
-                defaultChecked={!props.stop.actual_arrival === null}
-              />
+              {props.setAllStops && (
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  onClick={() =>
+                    props.setAllStops &&
+                    handleCheckInOut(
+                      props.stop.id,
+                      "departure",
+                      props.setAllStops
+                    )
+                  }
+                  defaultChecked={!props.stop.actual_arrival === null}
+                />
+              )}
               <p>
                 Expected departure:{" "}
-                {/* {sanitiseTimestamp(props.stop.exp_departure)} */}
+                {sanitiseTimestamp(props.stop.exp_departure)}
               </p>
             </>
           ) : (

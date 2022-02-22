@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 import IContact from "../interfaces/IContact";
-import { IStopAdding } from "../interfaces/IStop";
+import { IStopAdding, IStopSubmitted } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
 import getData from "../utils/getData";
 import { baseUrl } from "../baseUrl";
 import handleAddTrip from "../utils/handleAddTrip";
-// import Stop from "../components/Stop";
+import Stop from "../components/Stop";
 import { INewTrip, initialNewTrip } from "../interfaces/INewTrip";
 import { handleClickContact } from "../utils/handleClickContact";
 import handleAddStop from "../utils/handleAddStop";
@@ -32,6 +32,7 @@ export default function AddTrip(props: {
   };
 
   const [newTrip, setNewTrip] = useState<INewTrip>(initialNewTrip);
+  const [addedStops, setAddedStops] = useState<IStopSubmitted[] | undefined>();
   const [newStop, setNewStop] = useState<IStopAdding>(initialNewStop);
   const [allContacts, setAllContacts] = useState<IContact[]>([]);
 
@@ -92,6 +93,7 @@ export default function AddTrip(props: {
                   props.user,
                   setNewStop,
                   newStop,
+                  setAddedStops,
                   setNewTrip,
                   newTrip
                 )
@@ -112,9 +114,11 @@ export default function AddTrip(props: {
                 {contact.name}
               </button>
             ))}
-            {/* {newStops[0].name === ""
+            {addedStops === undefined
               ? "No stops added yet"
-              : newStops.map((stop) => <Stop stop={stop} />)} */}
+              : addedStops.map((stop) => (
+                  <Stop stop={stop} user={props.user} key={stop.name} />
+                ))}
             {/* ==================================MODAL STARTS===================================== */}
             <div
               className="modal fade"
