@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 import IContact from "../interfaces/IContact";
-import { IStopBasic } from "../interfaces/IStop";
+import { ICompanion, IStopBasic } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
 import getData from "../utils/getData";
 import { baseUrl } from "../baseUrl";
@@ -9,35 +9,61 @@ import handleAddTrip from "../utils/handleAddTrip";
 import Stop from "../components/Stop";
 import { INewTrip, initialNewTrip } from "../interfaces/INewTrip";
 import { handleClickContact } from "../utils/handleClickContact";
+import handleAddStop from "../utils/handleAddStop";
+import DateTimePicker from "react-datetime-picker";
+
+export const date: Date = new Date();
 
 export default function AddTrip(props: {
   user: IUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }): JSX.Element {
+  const initialNewCompanion = {
+    name: "",
+    contact: "",
+  };
+
   const initialNewStop = {
     trip: 0,
     name: "",
     location_link: "",
-    exp_arrival: "",
-    exp_departure: "",
+    exp_arrival: date,
+    exp_departure: date,
     best_email: "",
     best_phone: "",
     details: "",
-    companions: [],
+    companions: [initialNewCompanion],
   };
 
   const [newTrip, setNewTrip] = useState<INewTrip>(initialNewTrip);
-  const [newStop, setNewStop] = useState<IStopBasic[]>([]);
+  const [newStop, setNewStop] = useState<IStopBasic>(initialNewStop);
+  const [companion, setCompanion] = useState<ICompanion>(initialNewCompanion);
   const [allContacts, setAllContacts] = useState<IContact[]>([]);
 
   useEffect(() => {
     props.user &&
       getData(baseUrl + `/contacts/${props.user.id}`, setAllContacts);
-  }, []);
+  }, [props.user]);
 
-  function handleChangeStops(newVal, property) {
-    setNew;
-  }
+  const handleChangeStops = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setNewStop({ ...newStop, [e.target.name]: e.target.value });
+  };
+
+  const handleCompanion = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanion({ ...companion, [e.target.name]: e.target.value });
+  };
+
+  const handleAddCompanion = (companion: ICompanion) => {
+    setNewStop({ ...newStop, companions: [...newStop.companions, companion] });
+    setCompanion(initialNewCompanion);
+  };
+
+  console.log(newStop.exp_departure, newStop.exp_arrival);
 
   return (
     <>
@@ -86,7 +112,14 @@ export default function AddTrip(props: {
             <button
               className="btn btn-success me-2 btn-sm"
               onClick={() =>
-                props.user && handleAddTrip(props.user, setNewTrip, newTrip)
+                props.user &&
+                handleAddTrip(
+                  props.user,
+                  setNewStop,
+                  newStop,
+                  setNewTrip,
+                  newTrip
+                )
               }
             >
               Get Started
@@ -96,14 +129,17 @@ export default function AddTrip(props: {
           <>
             <h2>{newTrip.tripName}</h2>
             Shared with{" "}
-            {newTrip.contacts.map((contact) => {
-              <button className="btn btn-primary me-2 btn-sm">
+            {newTrip.contacts.map((contact) => (
+              <button
+                className="btn btn-primary me-2 btn-sm"
+                key={contact.name}
+              >
                 {contact.name}
-              </button>;
-            })}
-            {newStops[0].name === ""
+              </button>
+            ))}
+            {/* {newStops[0].name === ""
               ? "No stops added yet"
-              : newStops.map((stop) => <Stop stop={stop} />)}
+              : newStops.map((stop) => <Stop stop={stop} />)} */}
             {/* ==================================MODAL STARTS===================================== */}
             <div
               className="modal fade"
@@ -124,27 +160,127 @@ export default function AddTrip(props: {
                       className="close"
                       data-dismiss="modal"
                       aria-label="Close"
+                      onClick={() => setNewStop(initialNewStop)}
                     >
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div className="modal-body">
                     <div className="form-group">
-                      <h5>Stop name</h5>
+                      <h5>Stop name *</h5>
                       <input
                         type="text"
                         className="form-control"
                         id="stop-name"
-                        value={newContactName}
-                        onChange={(e) => setNewContactName(e.target.value)}
+                        name="name"
+                        value={newStop.name}
+                        onChange={(e) => handleChangeStops(e)}
                       />
-                      <h5>Contact email</h5>
+                      <h5>Location link *</h5>
                       <input
                         type="text"
                         className="form-control"
+                        placeholder="e.g. Google Maps, what3words"
                         id="contact-email"
-                        value={newContactEmail}
-                        onChange={(e) => setNewContactEmail(e.target.value)}
+                        name="location_link"
+                        value={newStop.location_link}
+                        onChange={(e) => handleChangeStops(e)}
+                      />
+                      <h5>Expected arrival *</h5>
+                      <DateTimePicker
+                        value={newStop.exp_arrival}
+                        disableClock={true}
+                        onChange={(value) =>
+                          setNewStop({ ...newStop, exp_arrival: value })
+                        }
+                      />
+                      <h5>Expected departure *</h5>
+                      <DateTimePicker
+                        value={newStop.exp_departure}
+                        disableClock={true}
+                        onChange={(value) =>
+                          setNewStop({ ...newStop, exp_arrival: value })
+                        }
+                      />
+                      <h5>Best phone *</h5>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="best-phone"
+                        name="best_phone"
+                        value={newStop.best_phone}
+                        onChange={(e) => handleChangeStops(e)}
+                      />
+                      <h5>Best email *</h5>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="best-email"
+                        name="best_email"
+                        value={newStop.best_email}
+                        onChange={(e) => handleChangeStops(e)}
+                      />
+                      {newStop.companions !== [] &&
+                        newStop.companions.map((companion) => (
+                          <ul key={companion.name}>
+                            <strong>{companion.name}</strong> -{" "}
+                            {companion.contact}
+                          </ul>
+                        ))}
+                      <div className="container">
+                        <div className="row">
+                          <div className="col">
+                            <h5>Companion name</h5>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="comp-name"
+                              name="name"
+                              value={companion.name}
+                              onChange={(e) => handleCompanion(e)}
+                            />
+                          </div>
+                          <div className="col">
+                            <h5>
+                              {companion.name === ""
+                                ? "Companion"
+                                : companion.name}
+                              's contact details
+                            </h5>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="e.g. phone number, email"
+                              id="comp-contact"
+                              name="contact"
+                              value={companion.contact}
+                              onChange={(e) => handleCompanion(e)}
+                            />
+                          </div>
+                          <div className="col">
+                            <button
+                              className="btn btn-outline-primary"
+                              onClick={() => {
+                                companion.name === "" ||
+                                companion.contact === ""
+                                  ? window.alert(
+                                      "Please enter a name and contact point for this companion"
+                                    )
+                                  : handleAddCompanion(companion);
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <h5>Details *</h5>
+                      <textarea
+                        className="form-control"
+                        id="details"
+                        name="details"
+                        value={newStop.details}
+                        onChange={(e) => handleChangeStops(e)}
                       />
                     </div>
                   </div>
@@ -153,6 +289,7 @@ export default function AddTrip(props: {
                       type="button"
                       className="btn btn-secondary me-2 btn-sm"
                       data-dismiss="modal"
+                      onClick={() => setNewStop(initialNewStop)}
                     >
                       Cancel
                     </button>
@@ -160,21 +297,9 @@ export default function AddTrip(props: {
                       type="button"
                       className="btn btn-primary me-2 btn-sm"
                       data-dismiss="modal"
-                      onClick={() => {
-                        (props.user && newContactName !== "") ||
-                        (props.user && newContactEmail !== "")
-                          ? handleAddContact(
-                              newContactName,
-                              newContactEmail,
-                              props.user.id,
-                              setAllContacts,
-                              setNewContactName,
-                              setNewContactEmail
-                            )
-                          : window.alert(
-                              "Contact name and email must be filled to submit."
-                            );
-                      }}
+                      onClick={() =>
+                        handleAddStop(newStop, setNewStop, initialNewStop)
+                      }
                     >
                       Submit
                     </button>

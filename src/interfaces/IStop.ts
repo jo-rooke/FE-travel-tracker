@@ -2,8 +2,8 @@ export interface IStopBasic {
   trip: number;
   name: string;
   location_link: string;
-  exp_arrival: string;
-  exp_departure: string;
+  exp_arrival: Date;
+  exp_departure: Date;
   best_email: string;
   best_phone: string;
   details: string;
@@ -15,7 +15,8 @@ export default interface IStop extends IStopBasic {
   actual_arrival: string | null;
   actual_departure: string | null;
 }
-interface ICompanion {
+
+export interface ICompanion {
   name: string;
   contact: string;
 }
