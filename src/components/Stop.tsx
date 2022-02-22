@@ -1,12 +1,14 @@
-import IStop from "../interfaces/IStop";
+import { IStopSubmitted } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
 import handleCheckInOut from "../utils/handleCheckInOut";
 import sanitiseTimestamp from "../utils/sanitiseTimestamp";
 
 export default function Stop(props: {
-  stop: IStop;
+  stop: IStopSubmitted;
   user: IUser | undefined;
-  setAllStops: React.Dispatch<React.SetStateAction<IStop[] | undefined>>;
+  setAllStops: React.Dispatch<
+    React.SetStateAction<IStopSubmitted[] | undefined>
+  >;
 }): JSX.Element {
   return (
     <>
@@ -28,7 +30,7 @@ export default function Stop(props: {
                 defaultChecked={!props.stop.actual_arrival === null}
               />
               <p>
-                Expected arrival: {sanitiseTimestamp(props.stop.exp_arrival)}{" "}
+                {/* Expected arrival: {sanitiseTimestamp(props.stop.exp_arrival)}{" "} */}
               </p>
             </>
           ) : (
@@ -52,7 +54,7 @@ export default function Stop(props: {
               />
               <p>
                 Expected departure:{" "}
-                {sanitiseTimestamp(props.stop.exp_departure)}
+                {/* {sanitiseTimestamp(props.stop.exp_departure)} */}
               </p>
             </>
           ) : (

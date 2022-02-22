@@ -1,20 +1,20 @@
-import { IStopBasic } from "../interfaces/IStop";
+import { IStopAdding } from "../interfaces/IStop";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
 import { date } from "../routes/AddTrip";
 import moment from "moment";
 
 export default function handleAddStop(
-  newStop: IStopBasic,
-  setNewStop: React.Dispatch<React.SetStateAction<IStopBasic>>,
-  initialNewStop: IStopBasic
+  newStop: IStopAdding,
+  setNewStop: React.Dispatch<React.SetStateAction<IStopAdding>>,
+  initialNewStop: IStopAdding
 ): void {
   if (
     newStop.trip === 0 ||
     newStop.name === "" ||
     newStop.location_link === "" ||
-    newStop.exp_arrival === date ||
-    newStop.exp_departure === date ||
+    newStop.new_arrival === date ||
+    newStop.new_departure === date ||
     newStop.best_phone === "" ||
     newStop.best_email === "" ||
     newStop.details === ""
@@ -25,8 +25,8 @@ export default function handleAddStop(
       .post(baseUrl + `/stops/${newStop.trip}`, {
         stopName: newStop.name,
         stopLink: newStop.location_link,
-        stopArrival: moment(newStop.exp_arrival).format(),
-        stopDeparture: moment(newStop.exp_departure).format(),
+        stopArrival: moment(newStop.new_arrival).format(),
+        stopDeparture: moment(newStop.new_departure).format(),
         stopEmail: newStop.best_email,
         stopPhone: newStop.best_phone,
         stopDetails: newStop.details,
