@@ -8,19 +8,23 @@ export default function LogOut(props: {
   return (
     <>
       {props.user !== undefined && (
-        <div className="row">
-          <p>Hello, {props.user.name}</p>
-          <Link to="/">
-            <button
-              className="btn btn-danger me-2 btn-sm"
-              onClick={() => {
-                props.setUser(undefined);
-                localStorage.removeItem("userId");
-              }}
-            >
-              Log out
-            </button>
-          </Link>
+        <div className="container-fluid ">
+          <div className="row">
+            <p className="col my-auto align-items-end">
+              Hello, {props.user.name}{" "}
+            </p>{" "}
+            <Link to="/">
+              <button
+                className="btn btn-danger p-2 me-2 btn-sm col my-auto align-items-center"
+                onClick={() => {
+                  props.setUser(undefined);
+                  localStorage.removeItem("userId");
+                }}
+              >
+                Log out
+              </button>
+            </Link>
+          </div>
         </div>
       )}
     </>
