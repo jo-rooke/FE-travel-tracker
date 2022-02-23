@@ -19,7 +19,6 @@ export default function ViewTrip(props: {
     props.individualTrip !== undefined &&
       getData(baseUrl + `/stops/${props.individualTrip.id}`, setAllStops);
   }, [props.individualTrip]);
-
   const obj = { pathname: "/add-trip", trip: props.individualTrip };
   return (
     <>
@@ -32,18 +31,35 @@ export default function ViewTrip(props: {
         {" "}
         {props.individualTrip !== undefined && props.individualTrip.name}
       </h1>
+      {props.individualTrip?.contacts.length === 0 ? (
+        "Not shared with any contacts"
+      ) : (
+        <>
+          Shared with:{" "}
+          {props.individualTrip?.contacts.map((contact) => (
+            <button className="btn btn-primary p-2 btn-sm" key={contact.name}>
+              {contact.name}
+            </button>
+          ))}
+        </>
+      )}
+
+      <br />
       <Link to={obj}>
         <button className="btn btn-success me-2 btn-sm">Edit trip</button>
       </Link>
       <br />
-      {allStops?.map((stop) => (
-        <Stop
-          key={stop.id}
-          stop={stop}
-          user={props.user}
-          setAllStops={setAllStops}
-        />
-      ))}
+      <br />
+      {allStops?.length === 0
+        ? "No stops yet"
+        : allStops?.map((stop) => (
+            <Stop
+              key={stop.id}
+              stop={stop}
+              user={props.user}
+              setAllStops={setAllStops}
+            />
+          ))}
     </>
   );
 }
