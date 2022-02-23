@@ -45,7 +45,7 @@ export default function AddStop(props: {
         value={props.newStop.new_departure}
         disableClock={true}
         onChange={(value: Date) =>
-          props.setNewStop({ ...props.newStop, new_arrival: value })
+          props.setNewStop({ ...props.newStop, new_departure: value })
         }
       />
       <h5>Best phone *</h5>

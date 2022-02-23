@@ -3,12 +3,15 @@ import axios from "axios";
 import { baseUrl } from "../baseUrl";
 import { date } from "../routes/AddTrip";
 import moment from "moment";
+import { INewTrip } from "../interfaces/INewTrip";
 
 export default function handleAddStop(
   newStop: IStopAdding,
   setNewStop: React.Dispatch<React.SetStateAction<IStopAdding>>,
-  initialNewStop: IStopAdding
+  initialNewStop: IStopAdding,
+  newTrip: INewTrip
 ): void {
+  console.log(newStop.trip);
   if (
     newStop.trip === 0 ||
     newStop.name === "" ||
@@ -21,6 +24,7 @@ export default function handleAddStop(
   ) {
     window.alert("Please fill in all the compulsory fields (marked with *)");
   } else {
+    const trip = newStop.trip;
     axios
       .post(baseUrl + `/stops/${newStop.trip}`, {
         stopName: newStop.name,
@@ -32,6 +36,7 @@ export default function handleAddStop(
         stopDetails: newStop.details,
         companions: newStop.companions,
       })
-      .then(() => setNewStop(initialNewStop));
+      .then(() => setNewStop(initialNewStop))
+      .then(() => setNewStop({ ...newStop, trip: trip }));
   }
 }
