@@ -12,12 +12,15 @@ import { handleClickContact } from "../utils/handleClickContact";
 import handleAddStop from "../utils/handleAddStop";
 import AddStop from "../components/AddStop";
 import { initialNewCompanion } from "../interfaces/IStop";
+import ITrip from "../interfaces/ITrip";
+import { Link } from "react-router-dom";
 
 export const date: Date = new Date();
 
 export default function AddTrip(props: {
   user: IUser | undefined;
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
+  trip?: ITrip | undefined;
 }): JSX.Element {
   const initialNewStop = {
     trip: 0,
@@ -41,6 +44,31 @@ export default function AddTrip(props: {
       getData(baseUrl + `/contacts/${props.user.id}`, setAllContacts);
   }, [props.user]);
 
+  useEffect(() => {
+    if (props.trip && props.user) {
+      getData(baseUrl + `/stops/${props.trip.id}`, setAllContacts);
+      const contactArr: IContact[] = [];
+      for (const contact of props.trip.contacts) {
+        contactArr.push({
+          id: 0,
+          contact_of: props.user.id,
+          name: contact.name,
+          email: "",
+          activated: true,
+        });
+      }
+      setNewTrip({
+        tripName: props.trip.name,
+        contacts: contactArr,
+        nameSubmitted: true,
+      });
+    }
+  }, [props.user, props.trip]);
+
+  useEffect(() => {
+    newStop.trip && getData(baseUrl + `/stops/${newStop.trip}`, setAddedStops);
+  }, [newStop]);
+
   return (
     <>
       <PageHeader
@@ -50,7 +78,7 @@ export default function AddTrip(props: {
       />
       <div className="d-flex justify-content-center mx-5">
         {newTrip.nameSubmitted === false ? (
-          <>
+          <div className="col">
             <h2>Create a new trip</h2>
             <div className="form-group my-1">
               <label htmlFor="tripName">Trip Name</label>
@@ -70,8 +98,8 @@ export default function AddTrip(props: {
                 <button
                   className={
                     newTrip.contacts.includes(contact)
-                      ? "btn btn-primary me-2 btn-sm"
-                      : "btn btn-outline-primary me-2 btn-sm"
+                      ? "btn btn-primary px-2 btn-sm"
+                      : "btn btn-outline-primary px-2 btn-sm"
                   }
                   type="button"
                   key={contact.id}
@@ -87,38 +115,43 @@ export default function AddTrip(props: {
             <br />
             <button
               className="btn btn-success me-2 btn-sm"
-              onClick={() =>
-                props.user &&
-                handleAddTrip(
-                  props.user,
-                  setNewStop,
-                  newStop,
-                  setAddedStops,
-                  setNewTrip,
-                  newTrip
-                )
-              }
+              onClick={() => {
+                newTrip.tripName === ""
+                  ? window.alert("Please add a title for your trip")
+                  : props.user &&
+                    handleAddTrip(
+                      props.user,
+                      setNewStop,
+                      newStop,
+                      setAddedStops,
+                      setNewTrip,
+                      newTrip
+                    );
+              }}
             >
               Get Started
             </button>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="col">
             <h2>{newTrip.tripName}</h2>
             Shared with{" "}
             {newTrip.contacts.map((contact) => (
-              <button
-                className="btn btn-primary me-2 btn-sm"
-                key={contact.name}
-              >
+              <button className="btn btn-primary btn-sm" key={contact.name}>
                 {contact.name}
               </button>
             ))}
-            {addedStops === undefined
-              ? "No stops added yet"
-              : addedStops.map((stop) => (
-                  <Stop stop={stop} user={props.user} key={stop.name} />
-                ))}
+            <br />
+            {addedStops?.length === 0 ? (
+              <>
+                No stops added yet <br />
+                <br />
+              </>
+            ) : (
+              addedStops?.map((stop) => (
+                <Stop stop={stop} user={props.user} key={stop.name} />
+              ))
+            )}
             {/* ==================================MODAL STARTS===================================== */}
             <div
               className="modal fade"
@@ -161,7 +194,12 @@ export default function AddTrip(props: {
                       className="btn btn-primary me-2 btn-sm"
                       data-dismiss="modal"
                       onClick={() =>
-                        handleAddStop(newStop, setNewStop, initialNewStop)
+                        handleAddStop(
+                          newStop,
+                          setNewStop,
+                          initialNewStop,
+                          newTrip
+                        )
                       }
                     >
                       Submit
@@ -172,13 +210,18 @@ export default function AddTrip(props: {
             </div>
             {/* ===================================MODAL END ============================================== */}
             <button
-              className="btn btn-outline-primary me-2 btn-sm"
+              className="btn btn-outline-primary btn-sm"
               data-toggle="modal"
               data-target="#addStop"
             >
               Add a stop
             </button>
-          </>
+            <br />
+            <br />
+            <Link to="/profile">
+              <button className="btn btn-success me-2"> Submit </button>
+            </Link>
+          </div>
         )}
       </div>
     </>

@@ -82,19 +82,20 @@ export default function Stop(props: {
                   Best contact: {props.stop.best_email} (email),{" "}
                   {props.stop.best_phone} (phone)
                 </p>
-                <p>Companions:</p>
-                {props.stop.companions.map((companion) => (
-                  <li key={companion.name}>
-                    {companion.name} ({companion.contact}){" "}
-                  </li>
-                ))}
+                {props.stop.companions[0].name === "" ? (
+                  <em>No companions for this stop</em>
+                ) : (
+                  <>
+                    <p>Companions:</p>
+                    {props.stop.companions.map((companion) => (
+                      <li key={companion.name}>
+                        {companion.name} ({companion.contact}){" "}
+                      </li>
+                    ))}
+                  </>
+                )}
               </div>
-              <div className="col">
-                <iframe
-                  title="Stop location"
-                  src={props.stop.location_link}
-                ></iframe>
-              </div>
+              {/* <div className="col">{props.stop.location_link}</div> */}
             </div>
           </div>
         </div>
