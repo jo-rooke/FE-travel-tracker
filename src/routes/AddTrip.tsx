@@ -115,17 +115,19 @@ export default function AddTrip(props: {
             <br />
             <button
               className="btn btn-success me-2 btn-sm"
-              onClick={() =>
-                props.user &&
-                handleAddTrip(
-                  props.user,
-                  setNewStop,
-                  newStop,
-                  setAddedStops,
-                  setNewTrip,
-                  newTrip
-                )
-              }
+              onClick={() => {
+                newTrip.tripName === ""
+                  ? window.alert("Please add a title for your trip")
+                  : props.user &&
+                    handleAddTrip(
+                      props.user,
+                      setNewStop,
+                      newStop,
+                      setAddedStops,
+                      setNewTrip,
+                      newTrip
+                    );
+              }}
             >
               Get Started
             </button>
