@@ -6,6 +6,7 @@ import { IStopSubmitted } from "../interfaces/IStop";
 import { useState, useEffect } from "react";
 import getData from "../utils/getData";
 import { baseUrl } from "../baseUrl";
+import { Link } from "react-router-dom";
 
 export default function ViewTrip(props: {
   user: IUser | undefined;
@@ -18,6 +19,8 @@ export default function ViewTrip(props: {
     props.individualTrip !== undefined &&
       getData(baseUrl + `/stops/${props.individualTrip.id}`, setAllStops);
   }, [props.individualTrip]);
+
+  const obj = { pathname: "/add-trip", trip: props.individualTrip };
   return (
     <>
       <PageHeader
@@ -29,7 +32,9 @@ export default function ViewTrip(props: {
         {" "}
         {props.individualTrip !== undefined && props.individualTrip.name}
       </h1>
-      <button className="btn btn-success me-2 btn-sm">Edit trip</button>
+      <Link to={obj}>
+        <button className="btn btn-success me-2 btn-sm">Edit trip</button>
+      </Link>
       <br />
       {allStops?.map((stop) => (
         <Stop
