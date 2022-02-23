@@ -3,7 +3,8 @@
 <a rel="Link to the RightTrack site" href="https://jr-travel-tracker.netlify.app/">Check out the live site</a>
 
 Going on a well-deserved post lockdown holiday? Packing it all in to go on that once-in-a-lifetime travelling spree? Or just making a journey you want to let your loved ones know about? 
-Use RightTrack to plan out, share, and alert your friends and family to progress on your trip. It can be chaotic to have to text everyone you know every time you have an update, but we allow you to send automated emails at the click of a button with all the itinerary detail of the stop youve reached
+Use RightTrack to plan out, share, and alert your friends and family to progress on your trip. It can be chaotic to have to text everyone you know every time you have an update, but we allow you to send automated emails at the click of a button with all the itinerary detail of the stop you've reached. 
+> Use us to stick on the right track.
 
 ## Features
 ### Your Profile
