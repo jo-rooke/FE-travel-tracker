@@ -27,7 +27,7 @@ export default function LogIn(props: {
         ))}
       </select>
       <Link to="/profile">
-        <button>Submit</button>
+        <button className="btn btn-outline-primary me-2 btn-sm">Submit</button>
       </Link>
     </>
   );

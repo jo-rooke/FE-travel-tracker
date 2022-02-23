@@ -12,6 +12,7 @@ export default function LogOut(props: {
           <p>Hello, {props.user.name}</p>
           <Link to="/">
             <button
+              className="btn btn-danger me-2 btn-sm"
               onClick={() => {
                 props.setUser(undefined);
                 localStorage.removeItem("userId");
