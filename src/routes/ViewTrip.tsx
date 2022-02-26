@@ -58,6 +58,7 @@ export default function ViewTrip(props: {
               stop={stop}
               user={props.user}
               setAllStops={setAllStops}
+              tripId={props.individualTrip?.id}
             />
           ))}
     </>
