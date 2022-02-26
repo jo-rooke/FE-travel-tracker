@@ -6,12 +6,13 @@ import getData from "./getData";
 export default function handleCheckInOut(
   stopId: number,
   arrOrDep: string,
-  setState: React.Dispatch<React.SetStateAction<IStopSubmitted[] | undefined>>
+  setState: React.Dispatch<React.SetStateAction<IStopSubmitted[] | undefined>>,
+  trip: number
 ): void {
   axios
     .put(baseUrl + `/stops/${arrOrDep}/${stopId}`)
-    .then((response) => {
-      getData(baseUrl, setState);
+    .then(() => {
+      getData(baseUrl + `/stops/${trip}`, setState);
     })
     .catch((error) => {
       console.log(error);

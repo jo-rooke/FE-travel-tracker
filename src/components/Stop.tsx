@@ -9,6 +9,7 @@ export default function Stop(props: {
   setAllStops?: React.Dispatch<
     React.SetStateAction<IStopSubmitted[] | undefined>
   >;
+  tripId?: number;
 }): JSX.Element {
   return (
     <>
@@ -30,10 +31,12 @@ export default function Stop(props: {
                         id="flexCheckDefault"
                         onClick={() =>
                           props.setAllStops &&
+                          props.tripId &&
                           handleCheckInOut(
                             props.stop.id,
                             "arrived",
-                            props.setAllStops
+                            props.setAllStops,
+                            props.tripId
                           )
                         }
                         defaultChecked={!props.stop.actual_arrival === null}
@@ -59,10 +62,12 @@ export default function Stop(props: {
                         id="flexCheckDefault"
                         onClick={() =>
                           props.setAllStops &&
+                          props.tripId &&
                           handleCheckInOut(
                             props.stop.id,
                             "departure",
-                            props.setAllStops
+                            props.setAllStops,
+                            props.tripId
                           )
                         }
                         defaultChecked={!props.stop.actual_arrival === null}
