@@ -5,7 +5,7 @@ import Stop from "../components/Stop";
 import { IStopSubmitted } from "../interfaces/IStop";
 import { useState, useEffect } from "react";
 import getData from "../utils/getData";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import { Link } from "react-router-dom";
 
 export default function ViewTrip(props: {

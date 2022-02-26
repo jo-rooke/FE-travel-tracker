@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ITrip from "../interfaces/ITrip";
 import IUser from "../interfaces/IUser";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import getData from "../utils/getData";
 import formatDate from "../utils/formatDate";
 import { Link } from "react-router-dom";

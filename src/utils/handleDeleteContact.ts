@@ -1,6 +1,6 @@
 import axios from "axios";
 import IContact from "../interfaces/IContact";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import getData from "./getData";
 export default function handleDisableContact(
   contactId: number,

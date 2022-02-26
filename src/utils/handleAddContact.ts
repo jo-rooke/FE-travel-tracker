@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import getData from "./getData";
 import IContact from "../interfaces/IContact";
 

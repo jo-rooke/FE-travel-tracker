@@ -1,6 +1,6 @@
 import { IStopAdding } from "../interfaces/IStop";
 import axios from "axios";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import { date } from "../routes/AddTrip";
 import moment from "moment";
 import { INewTrip } from "../interfaces/INewTrip";

@@ -1,6 +1,6 @@
 import { ICheckInOut } from "../interfaces/IEmailTemplate";
 import { send, init } from "emailjs-com";
-import { emailJsUser, emailJsService } from "../user";
+import { emailJsUser, emailJsService } from "../reference_variables/user";
 init(emailJsUser);
 
 export default function checkInOutEmail(templateParams: ICheckInOut): void {
