@@ -1,6 +1,6 @@
 import formatTime from "../utils/formatTime";
 
-test("Convert timestamp to human readable date and time", () => {
+test("Convert timestamp to human readable time", () => {
   expect(formatTime("2022-01-07T11:19:55.556Z")).toMatch(
     /[0-2][0-9]:[0-9][0-9]/
   );
