@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import IContact from "../interfaces/IContact";
 import IUser from "../interfaces/IUser";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import getData from "../utils/getData";
 import handleDisableContact from "../utils/handleDisableContact";
 import handleDeleteContact from "../utils/handleDeleteContact";

@@ -3,7 +3,7 @@ import PageHeader from "../components/PageHeader";
 import safeAlertEmail from "../utils/safeAlertEmail";
 import { useEffect, useState } from "react";
 import getData from "../utils/getData";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import { ISafeAlert } from "../interfaces/IEmailTemplate";
 import AllTrips from "../components/AllTrips";
 import AllContacts from "../components/AllContacts";

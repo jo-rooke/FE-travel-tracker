@@ -6,7 +6,7 @@ import UserProfile from "./routes/UserProfile";
 import ViewTrip from "./routes/ViewTrip";
 import IUser from "./interfaces/IUser";
 import getFullUser from "./utils/getFullUser";
-import { baseUrl } from "./baseUrl";
+import { baseUrl } from "./reference_variables/baseUrl";
 import getData from "./utils/getData";
 import ITrip from "./interfaces/ITrip";
 

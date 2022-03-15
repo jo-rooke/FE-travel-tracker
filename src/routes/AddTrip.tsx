@@ -4,7 +4,7 @@ import IContact from "../interfaces/IContact";
 import { IStopAdding, IStopSubmitted } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
 import getData from "../utils/getData";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import handleAddTrip from "../utils/handleAddTrip";
 import Stop from "../components/Stop";
 import { INewTrip, initialNewTrip } from "../interfaces/INewTrip";

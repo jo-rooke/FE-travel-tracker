@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "../baseUrl";
+import { baseUrl } from "../reference_variables/baseUrl";
 import { INewTrip } from "../interfaces/INewTrip";
 import { IStopAdding, IStopSubmitted } from "../interfaces/IStop";
 import IUser from "../interfaces/IUser";
